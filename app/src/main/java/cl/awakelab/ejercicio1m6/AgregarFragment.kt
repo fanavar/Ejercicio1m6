@@ -28,6 +28,7 @@ class AgregarFragment : Fragment() {
     ): View? {
         binding = FragmentAgregarBinding.inflate(layoutInflater, container, false)
         initListener()
+        loadTareas()
         return binding.root
     }
 
@@ -44,5 +45,14 @@ class AgregarFragment : Fragment() {
        GlobalScope.launch { dao.insertarTarea(tarea) }
     }
 
+    private fun loadTareas(){
+        val dao = TareaBdd.getDatabase(requireContext()).getTareaDao()
+        GlobalScope.launch {
+            val tareas = dao.getTareas()
+            val tareaAsText = tareas.joinToString("\n") { it.nombre }
+            binding.tvAgregar.text = tareaAsText
+        }
+
+    }
 
 }
