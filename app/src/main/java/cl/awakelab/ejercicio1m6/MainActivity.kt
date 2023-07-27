@@ -4,15 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 /*
-[] Navigation
-[] Fragmento agregar
-[] Crear Interfaz
-[] RecyclerView
-[] Room
-    [] _Dao
-    [] _BDD
-    [] _Entity
+[x] Navigation
+[x] Fragmento agregar
+[x] Crear Interfaz de usuario
+[x] Room
+    [x] _Entity
+    [x] _Dao
+    [x] _BDD
 [] Fragmento listado
+[] RecyclerView
 
 
  */
