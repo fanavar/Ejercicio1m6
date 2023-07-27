@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/listFragment">
+    app:startDestination="@id/agregarFragment">
 
     <fragment
         android:id="@+id/listFragment"
         android:name="cl.awakelab.ejercicio1m6.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
-        <action
-            android:id="@+id/action_listFragment_to_agregarFragment"
-            app:destination="@id/agregarFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_list" />
     <fragment
         android:id="@+id/agregarFragment"
         android:name="cl.awakelab.ejercicio1m6.AgregarFragment"
         android:label="fragment_agregar"
-        tools:layout="@layout/fragment_agregar" />
+        tools:layout="@layout/fragment_agregar" >
+        <action
+            android:id="@+id/action_agregarFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
 </navigation>
