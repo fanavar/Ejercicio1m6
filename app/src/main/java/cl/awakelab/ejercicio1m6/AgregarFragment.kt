@@ -16,6 +16,7 @@ private const val ARG_PARAM2 = "param2"
 
 class AgregarFragment : Fragment() {
     lateinit var binding: FragmentAgregarBinding
+    lateinit var repositorio: Repositorio
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,31 +28,38 @@ class AgregarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAgregarBinding.inflate(layoutInflater, container, false)
+        initRepositorio()
         initListener()
         loadTareas()
         return binding.root
     }
+    private fun initRepositorio(){
+        repositorio = Repositorio(TareaBdd.getDatabase(requireContext()).getTareaDao())
+    }
 
     private fun initListener() {
-        binding.btnAgregar.setOnClickListener{
+        binding.btnAgregar.setOnClickListener {
             val texto = binding.etAgregar.text.toString()
             guardarTarea(texto)
         }
     }
 
     private fun guardarTarea(texto: String) {
-       val dao = TareaBdd.getDatabase(requireContext()).getTareaDao()
-       val tarea = Tarea(texto )
-       GlobalScope.launch { dao.insertarTarea(tarea) }
+
+        val tarea = Tarea(texto)
+        GlobalScope.launch { repositorio.insertTarea(tarea) }
     }
 
-    private fun loadTareas(){
-        val dao = TareaBdd.getDatabase(requireContext()).getTareaDao()
-        GlobalScope.launch {
-            val tareas = dao.getTareas()
-            val tareaAsText = tareas.joinToString("\n") { it.nombre }
-            binding.tvAgregar.text = tareaAsText
-        }
+    private fun loadTareas() {
+
+
+            repositorio.getTareas().observe(requireActivity()){
+
+                val tareaAsText = it.joinToString("\n") { it.nombre }
+                binding.tvAgregar.text = tareaAsText
+            }
+
+
 
     }
 
